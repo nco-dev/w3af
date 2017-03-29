@@ -76,9 +76,10 @@ class shell_shock(AuditPlugin):
             # We are implementing these methods for detecting shell-shock vulns
             # if you know about other methods, or have improvements on these
             # please let us know. Pull-requests are also welcome.
-            for detection_method in [self._with_header_echo_injection,
+            '''for detection_method in [self._with_header_echo_injection,
                                      #self._with_body_echo_injection,
-                                     self._with_time_delay]:
+                                     self._with_time_delay]:'''
+            for detection_method in [self._with_header_echo_injection]:
                 if detection_method(freq):
                     break
 
