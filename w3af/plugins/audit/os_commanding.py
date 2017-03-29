@@ -73,7 +73,7 @@ class os_commanding(AuditPlugin):
         # where there IS a vulnerability present and can be found with both
         # methods.
         self._with_echo(freq, orig_response)
-        self._with_time_delay(freq)
+        #self._with_time_delay(freq)
 
     def _with_echo(self, freq, orig_response):
         """
