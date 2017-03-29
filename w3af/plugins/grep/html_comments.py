@@ -96,7 +96,7 @@ class html_comments(GrepPlugin):
             if self._is_new(comment, response):
 
                 self._interesting_word(comment, request, response)
-                self._html_in_comment(comment, request, response)
+                # self._html_in_comment(comment, request, response)
 
     def _interesting_word(self, comment, request, response):
         """
