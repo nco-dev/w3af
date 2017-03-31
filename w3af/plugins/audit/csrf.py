@@ -70,7 +70,7 @@ class csrf(AuditPlugin):
 
         :param freq: A FuzzableRequest
         """
-        if not self._is_suitable(freq):
+        if not self._is_suitable(freq, orig_response):
             return
 
         # Referer/Origin check
@@ -111,7 +111,7 @@ class csrf(AuditPlugin):
 
         return True
 
-    def _is_suitable(self, freq):
+    def _is_suitable(self, freq, orig_response):
         """
         For CSRF attack we need request with payload and persistent/session
         cookies.
@@ -132,6 +132,11 @@ class csrf(AuditPlugin):
         if freq.get_method() == 'GET' and self._strict_mode:
             return False
 
+        # Do we need to audit CSS and JS files?
+        content_type = orig_response.get_headers().get('content-type', None)
+        if content_type in ('text/css', 'application/javascript'):
+            return False
+
         # Does the request have a payload?
         #
         # By checking like this we're loosing the opportunity to find CSRF vulns
@@ -148,7 +153,7 @@ class csrf(AuditPlugin):
         :return: True if the remote web application verifies the Referer before
                  processing the HTTP request.
         """
-        fake_ref = 'http://www.w3af.org/'
+        fake_ref = 'http://www.example.com/'
 
         mutant = HeadersMutant(copy.deepcopy(freq))
         headers = mutant.get_dc()
