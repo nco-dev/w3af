@@ -139,7 +139,8 @@ class csrf(AuditPlugin):
 
         # Do we need to audit CSS and JS files?
         content_type = orig_response.get_headers().get('content-type', None)
-        if content_type in ('text/css', 'application/javascript'):
+        notWantedContentTypes = ('css', 'javascript')
+        if any(nwct in content_type for nwct in notWantedContentTypes):
             return False
 
         # Does the request have a payload?
