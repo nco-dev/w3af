@@ -105,7 +105,8 @@ class preg_replace(AuditPlugin):
         :return: A list with the names of the plugins that should be run before
                  the current one.
         """
-        return ['grep.error_500']
+        #return ['grep.error_500']
+        return []
 
     def get_long_desc(self):
         """
